@@ -1,0 +1,174 @@
+
+*{
+    font-family: Arial ;
+
+
+}
+body{
+    padding: 0;
+    margin: 0;
+
+}
+
+#container{
+    width: 1024px;
+    margin: auto;
+}
+h3{
+    font-size: 32px;
+    font-weight: bold;
+    color: #1f4b81;
+    width: 100%;
+    text-align: center;
+    margin: 10px;
+}
+
+
+header {
+    width: 100%;
+    height: 180px;
+}
+
+.cabecera{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.cabecera  img{
+    width: 210px;
+
+}
+.cabecera h1{
+    width: 80%;
+    margin: auto;
+}
+nav{
+    padding-bottom: 25px;
+}
+
+nav ul{
+    width: 80%;
+    overflow: hidden; /* que se adapte a lo que contiene */
+    margin: auto;
+    list-style: none;
+    padding: 0;
+    background-color: #1f4b81;
+    margin: auto;
+
+}
+
+nav ul li{
+    text-align: center;
+    /*display: inline-block;*/
+   float: left;
+    width:20%; /* solucion cutre*/
+}
+nav ul li a{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+nav ul li a:hover{
+    background-color: brown;
+}
+section p{
+    margin: 15px  0;
+
+}
+
+.destacados{
+    width: 100%;
+    padding: 25px  0;
+    overflow: hidden;
+}
+.destacado{
+
+    float: left;
+    width: 32%;
+    text-align: center;
+}
+
+footer{
+    padding: 50px;
+}
+
+
+footer ul{
+    width: 80%;
+    margin: auto;
+    list-style: none;
+    padding: 0;
+
+}
+
+footer ul li{
+    text-align: center;
+    /*display: inline-block;*/
+    float: left;
+    width:15%; /* solucion cutre*/
+}
+footer ul li a{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #1f4b81;
+}
+
+.animales{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 15px;
+}
+
+.animales .animal{
+    border: 1px solid #906;
+    font-size: 10px;
+}
+.animales .animal img{
+    width: 100%;
+}
+
+.animales .animal p{
+
+    text-align: justify;
+    color: #999;
+}
+.formulario{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    height: 800px;
+    background-color: burlywood;
+}
+
+form ul{
+    list-style: none;
+    padding: 0;
+    float: left;
+}
+form  li{
+    margin: 7px ;
+}
+
+label{
+    font-weight: bold;
+   display: inline-block;
+    width: 78px;
+    text-align: right;
+
+}
+
+input[type="text"]{
+    border-radius: 15px;
+    padding: 10px;
+
+}
+
+input[type="text"]:focus{
+    background-color: aqua;
+}
+
