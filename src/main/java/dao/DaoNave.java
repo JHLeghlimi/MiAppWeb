@@ -42,7 +42,7 @@ public class DaoNave {
 	// que me va a devolver un objeto de la misma clasde en la que estoy.
 
 	/**
-	 * Este método es el que utilizo para aplicar el patron Singelton.
+	 * Este método es el que utilizo para aplicar el patron SINGELTON.
 	 * @return
 	 * @throws SQLException
 	 */
@@ -75,6 +75,7 @@ public class DaoNave {
 		// prepareStatement listo para lanzarlo.
 		
 		int filas = ps.executeUpdate();
+		
 		ps.close();
 		
 		// executeUpdate porque quiero enviar, si es recibir seria executeQuery.
@@ -84,17 +85,30 @@ public class DaoNave {
 	
 	public ArrayList<Nave> listar() throws SQLException{
 		
+		// Un método con prepareStatement y me conecto con el atributo 'con' que ya tenemos elaborado.
+		// el "SELECT * FROM naves" puede ir dentro del (), o sacarlo con el 'String sql' de arriba, para trabajar mas cómodos.
+		// Ejecutarla y guardararla en un objeto de tipo ResultSet, ResultSet es el que utiliza mysql para almacenar esa coleccion.
+		// Y le indico que me ejecute el 'ps' pero dado que lo que quiero es recibir datos, no enviar, el que 
+		// usaré es el executeQuery, no el executeUpdate.
+		
 		String sql = "SELECT * FROM naves";
 		
-		PreparedStatement ps = con.prepareStatement(sql);
+		PreparedStatement ps = con.prepareStatement(sql); 
+		// Otra manera -> PreparedStatement ps = con.prepareStatement("SELECT * FROM naves")
 		
-		ResultSet res = ps.executeQuery();
+		ResultSet res = ps.executeQuery(); // aquí ya tengo una lista
 		
 		ArrayList<Nave> naves = null;
 		
 		
+		// Distribución en BD:
+		// null [] [] [] [] [] [] null
+		// Por lo tanto con el res.next salto el null y muevo el puntero a ese entero. 
+		// El bucle while recorrerá hasta encontrar el null final y parar.
 		
 		while(res.next()) {
+			
+			// Si el ArryList 'result' no está inicializado, sigue siendo null, inicializarlo, y sino no hacerlo.
 			
 			if(naves == null) {
 				
@@ -102,15 +116,20 @@ public class DaoNave {
 				
 			}
 			
-			naves.add(new Nave(res.getInt("id"), res.getString("nombre"), res.getString("clase"), res.getString("matricula"), res.getString("descripcion"), res.getString("estado"),res.getString("foto")));
+			// En cada fila del ArrayList instancio un objeto de tipo Nave.
+			// Elegir un constructor que, esta vez si, contenta el id.
 			
+			
+			naves.add(new Nave(res.getInt("id"), res.getString("nombre"), res.getString("clase"), res.getString("matricula"), res.getString("descripcion"), res.getString("estado"),res.getString("foto")));
+			// ó -> naves.add(new Nave(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6),res.getString(7)));
+			// y con asterisco * en la query sql ó en el "SELECT idnaves, nombre, etcetc, FROM naves".
+			// Libre elección, solo tener cuidado al poner el orden numérico.
 		}
 		
 		return naves;
 		
-		
-		
 	}
+	
 	
 	// IMPORTANTE
 	
@@ -121,15 +140,18 @@ public class DaoNave {
 	
 	public String listarJson() throws SQLException {
 		
-		String txtJSON = "";
+		// Esto es para convertir todos los datos que le damos a un arhivo json básicamente. Siempre es igual.
 		
-		Gson gson = new Gson(); // libreria gson
+		String json = ""; // genero un  String vacío.
+		Gson gson = new Gson(); // Creo un objeto gson // libreria Gson
 		
-		// Mediante este método toJson, tengo un String con todos los datos de mi base de datos
-		// en formato JSON.
-		txtJSON = gson.toJson(this.listar());
+		// Mediante este método toJson, tengo un String con todos los datos de mi base de datos en formato JSON.
+		// Dentro de ese String json, me metas lo que me devuelva el objeto gson, con el método toJson,
+		// que le voy a dar el método listar que es el que tiene todos los datos.
 		
-		return txtJSON;
+		json = gson.toJson(this.listar());
+		
+		return json; // retorno el archivo json
 		
 		// Ahora mi modelo ya es capaz de conectarse y hacer las cosas en JSON.
 		

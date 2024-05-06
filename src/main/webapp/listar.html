@@ -18,9 +18,9 @@
         }
 
     </style>
-
+	
     <script>
-	/*
+	
 		function llamada(){
 			
 
@@ -55,24 +55,25 @@
 			// Cuando se ejecute esto, tendremos una variable resultado con todo el formato JSON.
 			
 		}
-		*/
 		
 		
+		/*
 		// MANERA CORTA CON EL FETCH HACE TODO LO DE ARRIBA.
 		function llamada(){
 			fetch('ListarFotos')
 			.then(response => response.json())
 			.then(data => pintar(data))
-			
 		}
+		*/
+		
 		
 		function pintar(resultados){
 			
 			let html = "<table border=1>";
 				
-				for(let i=0;i<resultados.length;i++){
+				for(let i=0; i<resultados.length; i++){
 					
-					html += "<tr><td>"+reultados[i].nombre+"</td><td>"+reultados[i].clase+"</td></tr>"
+					html += "<tr><td>" + resultados[i].nombre + "</td><td>" + resultados[i].clase + "</td></tr>"
 					
 				}
 				
@@ -84,12 +85,14 @@
 		
 		window.onload = function(){
 			
-			llamada();
+			llamada;
 			
 		}
+		
+		
 			
 	</script>
- 
+ 	
 
 </head>
 <body>
@@ -130,7 +133,7 @@
         	 en la BD con su foto -->
        <h1>Listado de naves</h1>
        
-       <div id="listado">
+       <div id=listado>
 		   
 		   
 		   

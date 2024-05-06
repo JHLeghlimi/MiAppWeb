@@ -29,4 +29,14 @@
     <servlet-name>SVNave</servlet-name>
     <url-pattern>/SVNave</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Listar</display-name>
+    <servlet-name>Listar</servlet-name>
+    <servlet-class>driver.Listar</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Listar</servlet-name>
+    <url-pattern>/Listar</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -18,8 +18,6 @@ import dao.DaoNave;
 /**
  * Servlet implementation class ListarFotos
  */
-
-
 public class ListarFotos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,17 +37,60 @@ public class ListarFotos extends HttpServlet {
 		
 		// RECORDAR: request es entrada, response es salida.
 		
+		// Generar un objeto String con respuesta json que me metas lo que te devuelve el metodo DaoNave
+		// pero en este caso llamo a listarJson.
+		
 		try {
+			
+			// PRINTWRITER CON SINGELTON Y SIN SINGELTON
+			
+			// CON SINGELTON
+			String respuestaJSON;
+			respuestaJSON = DaoNave.getInstance().listarJson();
+			System.out.println(respuestaJSON); 
+			// Impresion por consola para comprobar que funciona antes de mandarlo a cliente por json.
+			
+			PrintWriter out = response.getWriter();
+			
+			out.print(respuestaJSON);
+			
+			
+			// De esta manera ya el cliente recibe los datos por web, siguiente paso es que esos datos 
+			// los reciba Javascript y los procese.
+			
+			// OTRA MANERA DE PRINTWRITER
 			// Voy a crear un objeto PrintWriter que me va a servir para enviar cosas.
+			 
+			/* SIN SINGELTON
+			 * 
 			PrintWriter out = response.getWriter();
 			
 			DaoNave dao = new DaoNave(); // Llamada a DaoNave
 			
-			String resultados = dao.listarJson(); // Aquí ya tengo un String con todos los datos.
+			String respuestaJSON = dao.listarJson(); // Aquí ya tengo un String con todos los datos.
 			
-			System.out.println(resultados); // Deberían aparecer todos los datos.
+			System.out.println(respuestaJSON); // Deberían aparecer todos los datos.
 			
-			out.print(resultados);
+			out.print(respuestaJSON);
+			
+			*/
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		/* Para la prueba con listado.html del video de vimeo.
+		try {
+			
+			ArrayList<Nave> listaEnObjetos = DaoNave.getInstance().listar(); // Con singelton.
+			
+				for (Nave a : listaEnObjetos) {
+					
+					System.out.println(a.toString());
+					
+				}
 			
 			// Esto hará que el back responda correctamente.
 			
@@ -57,6 +98,7 @@ public class ListarFotos extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		
 	}
 
@@ -65,6 +107,32 @@ public class ListarFotos extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		/*
+		try {
+			
+			// CON SINGELTON
+			ArrayList<Nave> listadoNaves = DaoNave.getInstance().listar(); 
+			
+			for (Nave a : listadoNaves) {
+				
+				System.out.println(a.toString());
+				
+			}
+			
+			/* SIN SINGELTON
+			DaoNave lista;
+			
+			PrintWriter out = response.getWriter();
+			lista = new DaoNave();
+			ArrayList<Nave> listadoNaves = lista.listar();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 		
 	}
 

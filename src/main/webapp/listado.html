@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Listado Naves</title>
+
+<script>
+
+// Concepto AJAX
+
+function llamada(url){
+	
+	fetch('ListarFotos') // Llama a esta url (servlet)
+	then(res => res.json()) // Esa respuesta transformala en formato json para Javascript
+	then(res => pintarResultados(res)); // Una vez tenga esa respuesta, llama a la funcion pintarResultados y envia ese json obtenido
+	
+}
+
+// Cuando la funcion llamada se ejecute va a obtener los datos, y entonces la funcion llamada llamará
+//  a la funcion pintarResultados para imprimirlos por pantalla.
+
+function pintarResultados(datos){
+	
+	let html = "<table border=1>";
+		
+	for(var i=0; i<datos.length; i++){
+		
+		html += "<tr><td>" + datos[i].nombre + "</td><td>" + datos[i].descripcion + "</td></tr>" 
+		
+	}
+	
+	html += "</table>";
+	
+	document.getElementById("resultados").innerHTML = html;
+	
+}
+
+window.onload = function(){
+	
+	llamada('ListarFotos'); // nombre del servlet
+	
+	// Basicamente con esto se añade un evento de carga con windows onload,
+	// cuando la ventana esté cargada, ejecutame llamada("ListarFotos").
+	
+}
+
+</script>
+
+</head>
+<body>
+
+<h1>Lista de Naves</h1>
+
+<div id="resultados">
+	<a href="ListarFotos">Enlace</a>
+	
+</div>
+
+<!-- en vez de window.onload esta manera llama con boton <button onclick="llamada('ListarFotos')">Pinta datos</button> -->
+
+</body>
+</html>

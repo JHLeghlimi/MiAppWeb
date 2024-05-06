@@ -41,7 +41,7 @@ public class DBConexion {
 		
 		// La magia está en que sea estática y en la sentencia de arriba.
 		
-		// Si  en vez del throws SQLException, queremos gestionar los errores.
+		// Si  en vez del throws SQLException, queremos gestionar los errores:
 		/* 		try {
 			instance = DriverManager.getConnection(JDBC_URL, "root", "1234");
 		} catch (SQLException e) {
@@ -56,5 +56,36 @@ public class DBConexion {
 		}
 		return instance;
 	}
+	
+	/*  CONEXIÓN SIN PATRON SINGELTON Y MAS DETALLADA (manera de Antonio Cardador).
+	 * 
+	 * public class conexionBD {
+
+	private String url = "jdbc:mysql://localhost:3306/lae";
+	private String user = "root";
+	private String password = "1234";
+	private Connection con = null;
+	
+	public conexionBD() {
+
+	}
+	
+	public void conectarBD() throws ClassNotFoundException, SQLException { // Abre la conexión.
+		Class.forName("com.mysql.jdbc.Driver"); // Es un driver para hacer la conexion con mysql.
+		con = DriverManager.getConnection(url, "root", "1234");
+		// le pasamos la url, el usuario y la contraseña de la BD.
+		// System.out.println("Conectado");
+	}
+
+	public void desconectarBD() throws SQLException { // Cierra la conexión.
+		// Desconecta SOLO si está conectado:
+		if (con != null) {
+			con.close();
+		}
+	}
+}
+
+	 */
+	
 
 }

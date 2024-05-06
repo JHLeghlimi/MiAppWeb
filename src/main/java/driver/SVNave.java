@@ -23,7 +23,7 @@ import java.sql.SQLException;
  */
 @WebServlet(name = "SVNave", urlPatterns = "/SVNave")
 @MultipartConfig
-public class SVNave extends HttpServlet {
+public class SVNave extends HttpServlet { // IMPORTANTE el 'extends' HttpServlet
 	private static final long serialVersionUID = 1L;
        
 	private String pathFiles = "C:\\Users\\Usuario\\eclipse-workspace\\MiAppWeb\\src\\main\\webapp\\fotosSubidas";
@@ -94,8 +94,10 @@ public class SVNave extends HttpServlet {
 		try {
 			// Copio los datos del archivo dentro del contenedor utilizando el buffer creado input.
 			Files.copy(input, file.toPath());
+			
 		} catch (Exception e) { // Try catch: si no lo ha copiado dame un mensaje de por qué. Gestion de errores.
 			// TODO: handle exception
+			
 			// Lo siguiente es opcional, queda pro.
 			System.out.println("Error al copiar archivo"); 
 			// Mensaje en web al usuario:
