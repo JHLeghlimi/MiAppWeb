@@ -8,11 +8,11 @@
 
 // Concepto AJAX
 
-function llamada(url){
+function llamada(){
 	
 	fetch('ListarFotos') // Llama a esta url (servlet)
-	then(res => res.json()) // Esa respuesta transformala en formato json para Javascript
-	then(res => pintarResultados(res)); // Una vez tenga esa respuesta, llama a la funcion pintarResultados y envia ese json obtenido
+	then(response => response.json()) // Esa respuesta transformala en formato json para Javascript
+	then(data => pintarResultados(data)); // Una vez tenga esa respuesta, llama a la funcion pintarResultados y envia ese json obtenido
 	
 }
 
@@ -37,10 +37,10 @@ function pintarResultados(datos){
 
 window.onload = function(){
 	
-	llamada('ListarFotos'); // nombre del servlet
+	llamada(); // nombre del servlet
 	
 	// Basicamente con esto se añade un evento de carga con windows onload,
-	// cuando la ventana esté cargada, ejecutame llamada("ListarFotos").
+	// cuando la ventana esté cargada, ejecutame este codigo --> llamada("ListarFotos").
 	
 }
 
@@ -51,8 +51,8 @@ window.onload = function(){
 
 <h1>Lista de Naves</h1>
 
-<div id="resultados">
-	<a href="ListarFotos">Enlace</a>
+<div id=resultados>
+	
 	
 </div>
 

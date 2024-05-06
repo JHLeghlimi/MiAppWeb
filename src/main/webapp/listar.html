@@ -21,6 +21,9 @@
 	
     <script>
 	
+		// Concepto AJAX
+		
+		/*
 		function llamada(){
 			
 
@@ -55,17 +58,19 @@
 			// Cuando se ejecute esto, tendremos una variable resultado con todo el formato JSON.
 			
 		}
-		
-		
-		/*
-		// MANERA CORTA CON EL FETCH HACE TODO LO DE ARRIBA.
-		function llamada(){
-			fetch('ListarFotos')
-			.then(response => response.json())
-			.then(data => pintar(data))
-		}
 		*/
 		
+		
+		// MANERA CORTA CON EL FETCH HACE TODO LO DE ARRIBA.
+		function llamada(){
+			fetch('ListarFotos') 			// Llama a esta url (servlet)
+			.then(response => response.json()) 	// Esa respuesta transformala en formato json para Javascript
+			.then(data => pintar(data)) // Una vez tenga esa respuesta, llama a la funcion pintarResultados y envia ese json obtenido
+		}
+		
+		// Cuando la funcion llamada se ejecute va a obtener los datos, y entonces la funcion llamada llamará
+		//  a la funcion pintarResultados para imprimirlos por pantalla.
+
 		
 		function pintar(resultados){
 			
@@ -73,7 +78,7 @@
 				
 				for(let i=0; i<resultados.length; i++){
 					
-					html += "<tr><td>" + resultados[i].nombre + "</td><td>" + resultados[i].clase + "</td></tr>"
+					html += "<tr><td>" + resultados[i].nombre + "</td><td>" + resultados[i].clase +"</td><td><img src='fotosSubidas/" + resultados[i].foto + "'</td></tr>"
 					
 				}
 				
@@ -85,7 +90,11 @@
 		
 		window.onload = function(){
 			
-			llamada;
+			llamada();
+			
+			// Basicamente con esto se añade un evento de carga con windows onload,
+			// cuando la ventana esté cargada, ejecutame este codigo --> llamada().
+
 			
 		}
 		
