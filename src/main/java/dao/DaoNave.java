@@ -25,10 +25,10 @@ import model.Nave;
 
 public class DaoNave {
 	
-	public static Connection con = null; // patron Singleton, se explicará otro sábado.
-	// Connection es el que está haciendo la magia, que ya esá hecha.
+	public static Connection con = null; // patron Singleton
+	// Connection es el que está haciendo la magia, que ya está hecha en DBConexion.
 	// Recordar, el private oculta, pero el static visualiza.
-	private static DaoNave instance = null; // para el Singelton
+	private static DaoNave instance = null; // *para el Singelton
 	
 	public DaoNave() throws SQLException { // este método es el constructor de esta clase.
 		
@@ -38,15 +38,15 @@ public class DaoNave {
 	}
 	
 	// SINGELTON:
-	// Hacer un método estático (lo llamo igual que la clase) para ser llamado,
-	// que me va a devolver un objeto de la misma clasde en la que estoy.
+	// Hacer un método estático* (lo llamo igual que la clase) para ser llamado,
+	// que me va a devolver un objeto de la misma clase en la que estoy.
 
 	/**
 	 * Este método es el que utilizo para aplicar el patron SINGELTON.
 	 * @return
 	 * @throws SQLException
 	 */
-	public static DaoNave getInstance() throws SQLException {
+	public static DaoNave getInstance() throws SQLException { 
 		
 		if (instance == null) { // Comprobar que no sea nulo.
 			instance = new DaoNave();
@@ -54,6 +54,8 @@ public class DaoNave {
 		
 		return instance;
 		
+		// Objeto DaoNave que llamo desde cualquier sitio.
+		// En Nave por ejemplo en el método insertar lo he llamado (patron Singelton).
 		
 	}
 	

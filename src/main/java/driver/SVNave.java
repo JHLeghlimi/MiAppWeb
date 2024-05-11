@@ -112,12 +112,16 @@ public class SVNave extends HttpServlet { // IMPORTANTE el 'extends' HttpServlet
 		System.out.println(n1.toString());
 		
 		// Aquí ya tengo que gestionar los errores, no puedo lanzar el throws.
+		
+		// Importante: aquí ya inserto.
 		try {   
 			n1.insertar();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Error en base de datos");
+			
+			// Quiero que este usuario una vez aquí se almacene en la BD.
 		} 
 		
 		// int anosServicio = request.getParameter("anosServicio") esto no funcionaría al ser int --> lo convertimos en -->

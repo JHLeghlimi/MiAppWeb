@@ -17,10 +17,10 @@ public class Nave {
 	private String foto;
 	private String estado;
 	
-	/*
-	 *  Olvidarse del Scanner, todos los datos me los dará el usuario,
-	 *  pero hay que darle medios para ello, excepto el id que me lo dará la BD.
-	 */
+	
+	 //  Olvidarse del Scanner, todos los datos me los dará el usuario,
+	 // pero hay que darle medios para ello, excepto el id que me lo dará la BD.
+	 
 	
 	public Nave() {
 		
@@ -37,8 +37,17 @@ public class Nave {
 		this.estado = estado;
 	}
 	
-	// Genero el constructor que me hace falta con los campos que quiero.
-	
+	// JAVADOC --> JavaDOC solo en el modelo y en las clases DAO.
+	/**
+	 * Constructor para <strong>creación del objeto</strong> desde el formulario.
+	 * Generar el constructor necesario.
+	 * @param nombre Atributo solo texto ...
+	 * @param clase
+	 * @param matricula
+	 * @param descripcion
+	 * @param estado
+	 * @param foto
+	 */
 	public Nave(String nombre, String clase, String matricula, String descripcion, String estado, String foto) {
 		
 		this.nombre = nombre;
@@ -62,7 +71,10 @@ public class Nave {
 		this.foto = foto;
 	}
 
-
+	/**
+	 * Método de inclusión del id en el objeto.
+	 * @return Retorna el id en tipo entero.
+	 */
 	public int getId() {
 		return id;
 	}
@@ -119,7 +131,7 @@ public class Nave {
 		this.foto = foto;
 	}
 	
-	public void insertar() throws SQLException {
+	public void insertar() throws SQLException { // los métodos siempre en minusculas (insertar).
 		
 		/* Sin Singelton
 		DaoNave dao = new DaoNave();
@@ -132,13 +144,19 @@ public class Nave {
 		// De esta manera es sencillo, ahora si tengo otro método update simplemente sería:
 		// DaoNave.getInstance().update(this);
 		
+		/*
+		Todo esto de aquí se puede hacer directamente en el servlet, tal cual, pero NO es una buena práctica,
+		y no se estaría siguiendo la estructura y el patron.
+		La llamada ala inserción debe estar dentro del objeto Nave!
+		El objeto Nave es el que debe dar la orden de su insercion al objeto DaoNave para introducirse a la BD.
+		Nota: ve a n1.Nave del servlet (el del try catch).
+		*/
 		
-		
-		
-		// Y ya tendría todo. Este es el final de todo.
-		// Ya tengo donde el cliente me rellena un formulario, java lo recibe en el servlet, 
-		// llama al metodo insertar, insertar llama a su dao, y su dao lo guarda en la base de datos.
-		
+		/*
+		Y ya tendría todo. Este es el final de todo.
+		Ya tengo donde el cliente me rellena un formulario, java lo recibe en el servlet, 
+		llama al metodo insertar, insertar llama a su dao, y su dao lo guarda en la base de datos.
+		*/
 	}
 
 	@Override
