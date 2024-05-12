@@ -50,9 +50,10 @@ public class SVNave extends HttpServlet { // IMPORTANTE el 'extends' HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// Esto siempre es lo mismo, es algo robótico.
-		// Lo que se pone entre comillas es el name que he puesto en html, si no es asi no me lo va a recepcionar.
-		
+		/*
+		 * Esto siempre es lo mismo, es algo robótico.
+		 * Lo que se pone entre comillas es el name que he puesto en html, si no es asi no me lo va a recepcionar.
+		 */
 		String nombre = request.getParameter("nombre");
 		String clase = request.getParameter("clase");
 		String matricula = request.getParameter("matricula");
@@ -123,11 +124,14 @@ public class SVNave extends HttpServlet { // IMPORTANTE el 'extends' HttpServlet
 			
 			// Quiero que este usuario una vez aquí se almacene en la BD.
 		} 
-		
-		// int anosServicio = request.getParameter("anosServicio") esto no funcionaría al ser int --> lo convertimos en -->
-		// int anosServicio = Integer.parseInt(request.getParameter("anosServicio"));
-		// Hemos convertido el integer en un String con el parseInt, porque los datos viajan en un String aunque me pongan un numero.
-		// Se llama parsearlo.
+		/*
+		int anosServicio = request.getParameter("anosServicio") esto no funcionaría al ser int --> lo convertimos en -->
+		int anosServicio = Integer.parseInt(request.getParameter("anosServicio"));
+		*/
+		/*
+		 * Hemos convertido el integer en un String con el parseInt, porque los datos viajan en un String,
+		 * aunque me pongan un numero. Se llama parsearlo.
+		 */
 	}
 	
 

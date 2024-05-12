@@ -2,16 +2,14 @@ package driver;
 
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Nave;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 import dao.DaoNave;
 
@@ -34,15 +32,18 @@ public class ListarFotos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		// RECORDAR: request es entrada, response es salida.
-		
-		// Generar un objeto String con respuesta json que me metas lo que te devuelve el metodo DaoNave
-		// pero en este caso llamo a listarJson.
-		
+		/*
+		 * RECORDAR: request -> entrada, response -> salida.
+		 * Cuando reciba una llamada por Get, llame  a la BD genere el json y me lo devuelva.
+		 * 
+		 * Generar un objeto String con respuesta json que me metas lo que te devuelve el metodo DaoNave
+		 * pero en este caso llamo a listarJson.
+		 */
 		try {
-			
-			// PRINTWRITER CON SINGELTON Y SIN SINGELTON
+			/*
+			 * Voy a crear un objeto PrintWriter que me va a servir para enviar cosas.
+			 * PRINTWRITER CON SINGELTON Y SIN SINGELTON
+			 */
 			
 			// CON SINGELTON
 			String respuestaJSON;
@@ -53,16 +54,16 @@ public class ListarFotos extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			
 			out.print(respuestaJSON);
-			
-			
-			// De esta manera ya el cliente recibe los datos por web, siguiente paso es que esos datos 
-			// los reciba Javascript y los procese.
+			/*
+			 * De esta manera ya el cliente recibe los datos por web, siguiente paso es que esos datos 
+			 * los reciba Javascript y los procese.
+			 */
 			
 			// OTRA MANERA DE PRINTWRITER
-			// Voy a crear un objeto PrintWriter que me va a servir para enviar cosas.
+			// 
 			 
-			/* SIN SINGELTON
-			 * 
+			/* SIN SINGELTON:
+
 			PrintWriter out = response.getWriter();
 			
 			DaoNave dao = new DaoNave(); // Llamada a DaoNave

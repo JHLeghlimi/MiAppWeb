@@ -21,11 +21,10 @@
 	
     <script>
 	
-		// Concepto AJAX
+		// Concepto del objeto AJAX PURO, hay que aprendelo aunque usemos el fetch.
 		
 		/*
-		function llamada(){
-			
+		function llamada(){		
 
 	      let xhr = new XMLHttpRequest(); // objeto xhr
 	      let resultados;
@@ -62,28 +61,51 @@
 		
 		
 		// MANERA CORTA CON EL FETCH HACE TODO LO DE ARRIBA.
+		// Esto es lo que hace que los datos del back pasen al front.
+		
 		function llamada(){
 			fetch('ListarFotos') 			// Llama a esta url (servlet)
 			.then(response => response.json()) 	// Esa respuesta transformala en formato json para Javascript
-			.then(data => pintar(data)) // Una vez tenga esa respuesta, llama a la funcion pintarResultados y envia ese json obtenido
+			.then(data => pintar(data)) // El data son los datos recibidos del response, una vez tenga esa respuesta data,
+			//Cuando ejecute data llame a la funcion pintar y envia ese json obtenido (y se le envie los data que he leido).
 		}
+		
+		/*
+		// Para recibir de listarConFiltro, para los filtros. Faltan cosas por medio.
+		function llamada(matricula){
+			fetch('ListarFotos?matricula='+matricula) 			
+			.then(response => response.json()) 	
+			.then(data => pintar(data))
+		
+		*/
 		
 		// Cuando la funcion llamada se ejecute va a obtener los datos, y entonces la funcion llamada llamará
 		//  a la funcion pintarResultados para imprimirlos por pantalla.
 
 		
-		function pintar(resultados){
+		function pintar(datos){
+			// Si quisiese recibir un datro en concreto sería por ejemplo: function pintar(0).
+			// Pero si queremos filtros se haría en el DaoNave en la secuencia sql poner el WHERE...etc.
 			
+			// console.log(datos) -> esto si no queremos hacer el html, para visualizar que se recibe en la consola de la web.
+			
+			// Aquí linkarlo con css, por ejemplo: let html = "<table class='tablabonitadecss'>
 			let html = "<table border=1>";
 				
-				for(let i=0; i<resultados.length; i++){
+				// Recorremelo de principio a final	y en cada interacción, quiero (html +=...).		
+				for(let i=0; i<datos.length; i++) {
 					
-					html += "<tr><td>" + resultados[i].nombre + "</td><td>" + resultados[i].clase +"</td><td><img src='fotosSubidas/" + resultados[i].foto + "'</td></tr>"
+					html +=	"<tr>";
+			    	html += "<td>" + datos[i].id + "</td>";
+					html += "<td>" + datos[i].nombre + "</td>";
+					html +=	"<td>" + datos[i].email + "</td>";
+					html +=	"<td>" + datos[i].tlf + "</td>";
+					html += "</tr>";
 					
 				}
 				
 				html += "</table>";
-			
+			// Quiero que mem busques el id que he llamado "listado", que es un objeto de tipo div, y un método que tiene es ek innerHTML.
 			document.getElementById("listado").innerHTML = html;
 				
 		}
