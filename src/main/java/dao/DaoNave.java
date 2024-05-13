@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 import model.Nave;
-import model.Usuario;
 
 /*
  * TIP: Hay que haer un Dao por cada entidad.
