@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Naves</title>
+    <link rel="stylesheet" href="css/limpiarGenericos.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <script src="https://kit.fontawesome.com/887ee4ad6e.js" crossorigin="anonymous"></script>
+    <script src="js/slider.js" type="text/javascript"></script>
+    <style>
+
+        #botonCambiaFoto{
+            padding: 10px;
+            background: #1f4b81;
+            color: aliceblue;
+            cursor: pointer ;
+        }
+
+    </style>
+	
+    <script>
+	
+		// Concepto AJAX
+		
+		/*
+		function llamada(){
+			
+
+	      let xhr = new XMLHttpRequest(); // objeto xhr
+	      let resultados;
+	      
+               xhr.onreadystatechange = function () { // ejecuta cada estado de la conexion, hay 4 estados
+                   if (xhr.readyState === 4){ // cuando llegues al 4º estado haz esto
+                       if (xhr.status === 200) { // simple verificación (ejemplo error 404), el status 200 es que todo ok.
+                         try{
+                    	 resultados = JSON.parse(xhr.responseText);            
+              			 // Mediante el objeto JS, parsea ese texto que me va a enviar el servlet de java
+              			 // el responseText, y lo guardes en resultados, que ya tiene todos los resultados en formato JSON.
+
+                         }catch (e) {
+							// TODO: handle exception
+							
+						}
+                       }                    
+                   }
+               };
+
+               xhr.open("GET", "ListarFotos", false); // llamo al servlet de listar en json
+               xhr.setRequestHeader("Content-Type", "application/json"); // opcional para evitar errores
+               xhr.send(); 
+               
+               pintar(resultados);
+			
+			// IMPORTANTE: El GET para llamadas y demás, y el POST para formularios y afines. 
+			// Es lo común, no es una norma.
+			
+			// Cuando se ejecute esto, tendremos una variable resultado con todo el formato JSON.
+			
+		}
+		*/
+		
+		
+		// MANERA CORTA CON EL FETCH HACE TODO LO DE ARRIBA.
+		function llamada(){
+			fetch('ListarFotos') 			// Llama a esta url (servlet)
+			.then(response => response.json()) 	// Esa respuesta transformala en formato json para Javascript
+			.then(data => pintar(data)) // Una vez tenga esa respuesta, llama a la funcion pintarResultados y envia ese json obtenido
+		}
+		
+		// Cuando la funcion llamada se ejecute va a obtener los datos, y entonces la funcion llamada llamará
+		//  a la funcion pintarResultados para imprimirlos por pantalla.
+
+		
+		function pintar(resultados){
+			
+			let html = "<table border=1>";
+				
+				for(let i=0; i<resultados.length; i++){
+					
+					html += "<tr><td>" + resultados[i].nombre + "</td><td>" + resultados[i].clase +"</td><td><img src='fotosSubidas/" + resultados[i].foto + "'</td></tr>"
+					
+				}
+				
+				html += "</table>";
+			
+			document.getElementById("listado").innerHTML = html;
+				
+		}
+		
+		window.onload = function(){
+			
+			llamada();
+			
+			// Basicamente con esto se añade un evento de carga con windows onload,
+			// cuando la ventana esté cargada, ejecutame este codigo --> llamada().
+
+			
+		}
+		
+		
+			
+	</script>
+ 	
+
+</head>
+<body>
+
+<div id="container">
+    <header>
+        <div class="cabecera">
+        <div id="usuario"></div>
+            <img src="img/logo.png"  title="Logo Naves" alt="Logo">
+            <h1 id="titulo">Web Federación Nebrijanos Unidos</h1>
+        </div>
+
+
+        <div class="login">
+            <!-- Espacio para el login -->
+
+		
+
+
+
+
+        </div>
+
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a> </li>
+            <li><a href="altas.html">Alta naves</a> </li>
+            <li><a href="galeria_conJson.html">xxxx</a> </li>
+            <li><a href="#">xxxx</a> </li>
+            <li><a href="#">xxx</a> </li>
+        </ul>
+    </nav>
+    <section>
+        <!-- Estoy trabajando aquí -->
+        
+        <!-- La idea es que cuando entre aquí me aparezca el listado de todas las naves que tengo 
+        	 en la BD con su foto -->
+       <h1>Listado de naves</h1>
+       
+       <div id=listado>
+		   
+		   
+		   
+	   </div>
+       
+
+    </section>
+    <hr>
+    <footer>
+        <ul>
+            <li><a href="index.html">Home</a> </li>
+            <li><a href="#">Naves</a> </li>
+            <li><a href="#">Blog</a> </li>
+            <li><a href="#">Contacto</a> </li>
+            <li><a href="#">Aviso Legal</a> </li>
+            <li><a href="#">Cookies</a> </li>
+        </ul>
+    </footer>
+</div>
+</body>
+
+</html>
