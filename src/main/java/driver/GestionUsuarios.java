@@ -40,12 +40,13 @@ public class GestionUsuarios extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		int opcion = Integer.parseInt(request.getParameter("op")); // del &op= en el html
+		// int id = Integer.parseInt(request.getParameter("id")); 
+		// cuidado con donde colocarlo, sino alguna de las opciones no recibirá el id. Se podría oprimizar para no ponerlo 3 veces en las 3 opciones.
 		
 		if(opcion == 2) { 
 			// proceso logica edicion
 			// esto hará una cosa y el else otra.
-			int id = Integer.parseInt(request.getParameter("id"));
-
+			int id = Integer.parseInt(request.getParameter("id")); 
 			Usuario u = new Usuario(); 
 			// Un objeto Usuario con el constructor vacío.
 			try {
@@ -71,8 +72,28 @@ public class GestionUsuarios extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+		}else if(opcion == 3) {
+			
+			try {
+				int id = Integer.parseInt(request.getParameter("id")); 
+				DaoUsuario usuarios = new DaoUsuario(); // esto es lo mismo que lo de la opcion 1 pero en una sola línea.
+				usuarios.borrar(id);
+				out.print(usuarios.listarJson());
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // esto es lo mismo que lo de la opcion 1 pero en una sola línea.
+			
+			
+			
 		}
-						
+				
+		
+		
+		
+		
 	}
 
 	/**

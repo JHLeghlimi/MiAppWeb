@@ -63,7 +63,7 @@ public class DaoUsuario {
 		 * 
 		 */
 		
-		String sql = "UPDATE usuarios SET (nombre=?,email=?,tlf=?,permiso=?) WHERE id=?";
+		String sql = "UPDATE usuarios SET nombre=?, email=?, tlf=?, permiso=? WHERE id=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		
 		ps.setString(1, u.getNombre());
@@ -72,6 +72,18 @@ public class DaoUsuario {
 		ps.setInt(4, u.getPermiso());
 		ps.setInt(5, u.getId());
 		
+		int filas = ps.executeUpdate();
+		
+		ps.close();
+		
+	}
+	
+	public void borrar(int id) throws SQLException {
+		
+		String sql = "DELETE FROM usuarios WHERE id=? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, id);
+
 		int filas = ps.executeUpdate();
 		
 		ps.close();

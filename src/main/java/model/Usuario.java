@@ -100,18 +100,28 @@ public class Usuario {
 	 */
 	public void insertar() throws SQLException {
 		
-		//DaoUsuario dao = new DaoUsuario ();
-		//dao.insertar(this);
-		
 		DaoUsuario.getInstance().insertar(this);
+		
+		// DaoUsuario dao = new DaoUsuario ();
+		// dao.insertar(this);
+		
 	}
 	
 	public void actualizar() throws SQLException {
 		
 		DaoUsuario.getInstance().actualizar(this);
 		
-		//DaoUsuario dao = new DaoUsuario();
-		//dao.actualizar(this);
+		// DaoUsuario dao = new DaoUsuario();
+		// dao.actualizar(this);
+		
+	}
+	
+	public void borrar(int id) throws SQLException {
+		
+		DaoUsuario.getInstance().borrar(id);
+		
+		// DaoUsuario dao = new DaoUsuario();
+		// dao.borrar(id);
 		
 	}
 	

@@ -29,7 +29,22 @@
     	.then(response => response.json())
     	.then(data => pintarTabla(data))
     	
-    }
+    } // Se podría hacer en una sola función - fetch
+	
+	function borrar(id) {
+		
+		// Lo del if confirm, salta la ventanita del navegador preguntando, PERO, 
+		// se debe hacer con css (con div,etc) una cajita bonita en la propia página.
+		
+		if(confirm("Seguro que quieres borrar")) { // que si, devuelve true y ejecuta y si no, devuelve false y va al else.
+			
+		fetch('GestionUsuarios?id='+id+'&op=3') // llama a borrar por id
+		.then(response => response.json())
+		.then(data => pintarTabla(data))
+		
+		}
+		
+	}
     
     function pintarTabla(datos) {
     	
@@ -42,7 +57,7 @@
 		html += "<td>" + datos[i].nombre + "</td>";
 		html +=	"<td>" + datos[i].email + "</td>";
 		html +=	"<td>" + datos[i].tlf + "</td>";
-		html += "<td><a href='altaUsuario.html?id="+ datos[i].id +"&op=2'>Editar</a></td><td><a href='javascript:borrar()'>Borrar</a></td>";
+		html += "<td><a href='altaUsuario.html?id="+ datos[i].id +"&op=2'>Editar</a></td><td><a href='javascript:borrar("+datos[i].id+")'>Borrar</a></td>";
 		html += "</tr>";
 		// Editar es una forma, y borrar lo haremos de otra forma con una funcion JS para preguntar si quiere borrar (es lo ideal).
 		//	&op=2 es para no crear un nuevo servlet (condicionarlo), usar el mismo, pero decir que estamos en la opcion 2.
