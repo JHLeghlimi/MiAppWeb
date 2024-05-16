@@ -26,8 +26,8 @@
 
     function llamada() {
     	fetch('GestionUsuarios?op=1')
-    	.then(response => response.json())
-    	.then(data => pintarTabla(data))
+    		.then(response => response.json())
+    		.then(data => pintarTabla(data))
     	
     } // Se podría hacer en una sola función - fetch
 	
@@ -38,18 +38,18 @@
 		
 		if(confirm("Seguro que quieres borrar")) { // que si, devuelve true y ejecuta y si no, devuelve false y va al else.
 			
-		fetch('GestionUsuarios?id='+id+'&op=3') // llama a borrar por id
-		.then(response => response.json())
-		.then(data => pintarTabla(data))
+		fetch('GestionUsuarios?id='+id+'&op=3') // llama al servlet GestionUsuarios siguiendo la opcion 3 y por id (funcion borrar)
+			.then(response => response.json())
+			.then(data => pintarTabla(data))
 		
 		}
-		
+		// Se podrían optimizar las funciones con fetch y usare solo una condicionada.
 	}
     
-    function pintarTabla(datos) {
+    function pintarTabla(datos) { // PASO 9. Pinta la tabla con los datos recibidos. FIN.
     	
     	let html = "<table>";
-    	// Aquí hacer algo bonito con HTML/CSS
+    	// Aquí hacer algo bonito con HTML/CSS 		// Ejemplo de foto: html += "img src='img/"+datos[i].foto+"'; /img es la carpeta ejemplo
 		for(let i=0; i<datos.length; i++) {
 		
 		html +=	"<tr>";
@@ -67,6 +67,15 @@
 	
 	document.getElementById("listado").innerHTML = html;
 	
+	}
+	
+	function busquedaPorTipo(tipoUsuario) {
+		// Si es la opcion 4 quiero que uses el filtro y le mandamos el tipoUsuario
+		// PASO 1. llamada a servlet GestionUsuarios siguiendo la opcion 4 y por tipoUsuario (funcion busquedaPorTipo).
+		fetch('GestionUsuarios?op=4&tipoUsuario='+tipoUsuario) 
+			.then(response => response.json()) // PASO 7. llega aquí la respuesta, lo parsea a json
+			.then(data => pintarTabla(data)) // PASO 8. los datos se usan en la funcion pintarTabla
+		
 	}
     
     window.onload = function() {
@@ -108,7 +117,23 @@
     <section>
 
         <!-- Estoy trabajando aquí -->
+		
         <h1>Listado de usuarios</h1>
+		<form name="Listado" method="get" action="GestionUsuarios?op=1&op=4">
+			
+		<!--Busqueda por tipo, y esta opcion mandame el value-->
+		<!-- tipoUsuario arriba en el JS donde llamamos al servlet GestionUsuarios: ...op=4&tipoUsuario=... -->	
+		<!--Hago un evento (select), y le mando una funcion JS (busquedaPorTipo) con el onchange y 
+			como parámetro me vas a mandar del selcet su value (this.value)-->
+		<select name="tipoUsuario" onchange="busquedaPorTipo(this.value)">  
+			<option value="0">...</option>
+			<option value="1">Usuarios</option>
+			<option value="9">Admins</option>
+		</select>	
+		
+			
+		</form>
+		
         <div id="listado"></div>
 
 

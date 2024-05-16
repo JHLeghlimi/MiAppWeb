@@ -107,7 +107,7 @@ public class DaoUsuario {
 	}
 	
 	/**
-	 * Método listar con prepardesStatement.
+	 * Método listar con prepardesStatement y retorna un Array List
 	 * @return
 	 * @throws SQLException
 	 */
@@ -115,7 +115,6 @@ public class DaoUsuario {
 		
 		String sql = "SELECT * FROM usuarios"; 
 		PreparedStatement ps = con.prepareStatement(sql);
-		
 		ResultSet rs = ps.executeQuery();
 		
 		ArrayList<Usuario> ls = null;
@@ -127,7 +126,32 @@ public class DaoUsuario {
 			ls.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));			
 		}
 		return ls;		
+		// retorna el Array Lsta
+	}
+	
+	/**
+	 * Método listar que retorna los usuarios con el filtrado de tipo. Se ha sobrecargado la función, es un copia y pega del listar general.
+	 * @param tipo
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Usuario> listar(int tipoUsuario) throws SQLException {
 		
+		String sql = "SELECT * FROM usuarios WHERE permiso=?"; 
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1,  tipoUsuario); // aquí el parametro tipo que lo añado a la sentencia
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<Usuario> ls = null;
+		
+		while(rs.next()) {			
+			if (ls == null) {				
+				ls = new ArrayList<Usuario>();				
+			}			
+			ls.add(new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));			
+		}
+		return ls;		
+		// PASO 4. Retorna un Array List con los elementos que han cumplido la condición WHERE de la BD
 	}
 	
 	/**
@@ -146,5 +170,24 @@ public class DaoUsuario {
 		return json;
 		
 	}
+	
+	/**
+	 * Se ha sobrecargado la función, esto es copiando y pegando pero metiendole el int.
+	 * @param tipoUsuario
+	 * @return
+	 * @throws SQLException
+	 */
+	public String listarJson(int tipoUsuario) throws SQLException { // esto es llamado desde el servlet GestionUsuarios
+		
+		String json = "";
+		
+		Gson gson = new Gson();
+		
+		json = gson.toJson(this.listar(tipoUsuario)); // PASO 3. LLama al método listar(tipoUsuario) de arriba
+		
+		return json;
+		// PASO 5. retorna el json al servlet y el servlet lo envía al out.print
+	}
+
 
 }

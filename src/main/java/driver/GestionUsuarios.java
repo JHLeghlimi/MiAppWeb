@@ -36,6 +36,7 @@ public class GestionUsuarios extends HttpServlet {
 		// TODO Auto-generated method stub				
 		
 		// Usando un mismo servlet para listar un formulario entero o solo por ID, de ahí las dos opciones.
+		// Se podría usar Switch.
 		
 		PrintWriter out = response.getWriter();
 		
@@ -58,8 +59,7 @@ public class GestionUsuarios extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}			
 		}else if(opcion == 1) {
 			DaoUsuario usuarios;
 			try {
@@ -71,28 +71,45 @@ public class GestionUsuarios extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}			
 		}else if(opcion == 3) {
 			
 			try {
-				int id = Integer.parseInt(request.getParameter("id")); 
-				DaoUsuario usuarios = new DaoUsuario(); // esto es lo mismo que lo de la opcion 1 pero en una sola línea.
+				int id = Integer.parseInt(request.getParameter("id"));
+				
+				// Se podría usar singelton? Si, investigar
+				
+				DaoUsuario usuarios = new DaoUsuario(); //esto es lo mismo que lo de la opcion 1 pero en una sola línea
 				usuarios.borrar(id);
 				out.print(usuarios.listarJson());
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} // esto es lo mismo que lo de la opcion 1 pero en una sola línea.
+			} // esto es lo mismo que lo de la opcion 1 pero en una sola línea				
+		}else if(opcion == 4) { 
 			
+			int tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario")); // El name que le hemos dado en el <select name= tipoUsuario>
+			System.out.println("Entro en filtro por tipo" + tipoUsuario); // esto es un truco para comprobar si entra aquí
+			
+			try {
+				DaoUsuario usuarios = new DaoUsuario(); //  PASO 2. llamada a DaoUsuario
+				out.print(usuarios.listarJson(tipoUsuario)); // PASO 6. Recibimos el json del DaoUsuario y desde aquí vamos al listarUsuarios.html
+				
+				// Se podría usar singelton? Si, investigar
+				// DaoUsuario.getInstance().listarJson(tipoUsuario);
+				// out.print(tipoUsuario);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			
 		}
 				
 		
-		
-		
+	
 		
 	}
 
