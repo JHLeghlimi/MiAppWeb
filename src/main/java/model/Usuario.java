@@ -142,7 +142,41 @@ public class Usuario {
 		
 		//DaoUsuario.getInstance().obtenerPorID(id);
 	
-	}	
+	}
+	
+	/**
+	 * Método que me va a devolver un boolean
+	 * @param password
+	 * @return
+	 * @throws SQLException 
+	 */
+	public boolean logeo(String password) throws SQLException {
+		
+		boolean ok = false;
+		
+		DaoUsuario dao = new DaoUsuario();
+		Usuario aux = dao.logeando(this, password); // BD
+
+		// Usar Singelton para lo de arriba. Cómo¿?
+		// DaoUsuario.getInstance().logeando(this, password);
+		
+		/*
+		 * Si este metodo me devuelve un objeto aux con sus datos significa que se ha logeado correctamente.
+		 * Si aux es diferente a null siginifica que aux contiene los datos de este usuario
+		 */
+		if(aux != null) { 
+			ok = true;
+			
+			this.setId(aux.getId());
+			this.setNombre(aux.getNombre());
+			this.setEmail(aux.getEmail());
+			this.setTlf(aux.getTlf());
+			this.setPermiso(aux.getPermiso());
+		}
+		
+		return ok;
+		
+	}
 	
 		
 	public String dameJson() {

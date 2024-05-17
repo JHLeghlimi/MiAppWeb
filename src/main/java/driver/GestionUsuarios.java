@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Usuario;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import dao.DaoUsuario;
 @WebServlet(name = "GestionUsuarios", urlPatterns = "/GestionUsuarios")
 public class GestionUsuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	HttpSession sesion;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -35,8 +37,20 @@ public class GestionUsuarios extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub				
 		
+		// Proteger esta página
+		// proteger todo con la sesion. Hay mil maneras de hacerlo, o proteger solo x opcion, etc.
+		sesion = request.getSession();
+		
+		// Convierto lo que recibe la sesion a String, y del String al parseInt 
+		// int idSesion = Integer.parseInt((String)sesion.getAttribute("id")); // esto viene del login (donde pone u.logeo)
+		int idSesion = (int) sesion.getAttribute("id"); //esto es lo mismo que lo de arriba
+		
 		// Usando un mismo servlet para listar un formulario entero o solo por ID, de ahí las dos opciones.
 		// Se podría usar Switch.
+		
+		// Si el idSesion es diferente a 0, es que es un usuario registrado
+		if(idSesion != 0) {
+			
 		
 		PrintWriter out = response.getWriter();
 		
@@ -65,6 +79,7 @@ public class GestionUsuarios extends HttpServlet {
 			try {
 				usuarios = new DaoUsuario();
 				out.print(usuarios.listarJson());
+				response.sendRedirect("listarUsuarios.html");
 				
 				// out.print(DaoUsuario.getInstance().listarJson());
 				
@@ -107,7 +122,11 @@ public class GestionUsuarios extends HttpServlet {
 			
 			
 		}
-				
+		
+		}else { // else del primer if
+			System.out.println("No puede entrar");
+			response.sendRedirect("login.html");
+		}
 		
 	
 		
@@ -159,7 +178,8 @@ public class GestionUsuarios extends HttpServlet {
 		 * Básicamente es decirle, vete a este sitio.
 		 */
 		response.sendRedirect("listarUsuarios.html");
-
+		
+	
 	}
 
 }

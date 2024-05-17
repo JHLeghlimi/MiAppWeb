@@ -107,6 +107,32 @@ public class DaoUsuario {
 	}
 	
 	/**
+	 * Me va a devolver un objeto Usuario, lo llamo logeando, y recibe un objeto Usuario u, y recibe un String password
+	 * @param u
+	 * @param password
+	 * @return
+	 * @throws SQLException 
+	 */
+	public Usuario logeando(Usuario u, String password) throws SQLException {
+		// Ahora el prepareSatement, casi copiar y pegar de ObtenerId por ejemplo
+		
+		String sql = "SELECT * FROM usuarios WHERE email=? AND password=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, u.getEmail()); 
+		ps.setString(2, password);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		
+		Usuario aux = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+		
+		return aux;
+		
+	}
+	
+	
+	/**
 	 * Método listar con prepardesStatement y retorna un Array List
 	 * @return
 	 * @throws SQLException
